@@ -58,8 +58,7 @@ void createDiscoveryFromList(char* mac, char* sensorList[][12], int sensorCount)
                     will_Topic, sensorList[i][3], sensorList[i][4],
                     sensorList[i][5], sensorList[i][6], sensorList[i][7],
                     0, "", "", false, "",
-                    sensorList[i][8], sensorList[i][9], sensorList[i][10], sensorList[i][11]
-                    );
+                    sensorList[i][8], sensorList[i][9], sensorList[i][10], sensorList[i][11]);
   }
 }
 #  endif
@@ -70,8 +69,7 @@ void createDiscovery(char* sensor_type,
                      char* payload_on, char* payload_off, char* unit_of_meas,
                      int off_delay,
                      char* payload_available, char* payload_not_avalaible, bool gateway_entity, char* cmd_topic,
-                     char* device_name, char* device_manufacturer, char* device_model, char* device_mac
-                     ) {
+                     char* device_name, char* device_manufacturer, char* device_model, char* device_mac) {
   const int JSON_MSG_CALC_BUFFER = JSON_OBJECT_SIZE(14) + JSON_OBJECT_SIZE(5) + JSON_ARRAY_SIZE(1);
   StaticJsonBuffer<JSON_MSG_CALC_BUFFER> jsonBuffer;
   JsonObject& sensor = jsonBuffer.createObject();
@@ -132,11 +130,11 @@ void createDiscovery(char* sensor_type,
     sensor.set("device", device); //device representing the board
   } else {
     char deviceid[13];
-    memcpy(deviceid, &unique_id[0], 12 );    
-    deviceid[12]= '\0';
+    memcpy(deviceid, &unique_id[0], 12);
+    deviceid[12] = '\0';
     StaticJsonBuffer<JSON_MSG_BUFFER> jsonDeviceBuffer;
     JsonObject& device = jsonDeviceBuffer.createObject();
-    if ( device_mac != "" ) {
+    if (device_mac != "") {
       JsonArray& connections = device.createNestedArray("connections");
       JsonArray& connection_mac = connections.createNestedArray();
       connection_mac.add("mac");
@@ -144,13 +142,13 @@ void createDiscovery(char* sensor_type,
     }
     JsonArray& identifiers = device.createNestedArray("identifiers");
     identifiers.add(deviceid);
-    if ( device_manufacturer != "" ) {
+    if (device_manufacturer != "") {
       device.set("manufacturer", device_manufacturer);
     }
-    if ( device_model != "" ) {
+    if (device_model != "") {
       device.set("model", device_model);
     }
-    if ( device_name != "" ) {
+    if (device_name != "") {
       device.set("name", device_name);
     }
     device.set("via_device", gateway_name); //device name of the board
@@ -255,7 +253,7 @@ void pubMqttDiscovery() {
                     BMEsensor[i][5], BMEsensor[i][6], BMEsensor[i][7],
                     0, "", "", true, "",
                     "", "", "", "" // device name, device manufacturer, device model, device mac
-                    );
+    );
   }
 #  endif
 
@@ -277,7 +275,7 @@ void pubMqttDiscovery() {
                     HTUsensor[i][5], HTUsensor[i][6], HTUsensor[i][7],
                     0, "", "", true, "",
                     "", "", "", "" // device name, device manufacturer, device model, device mac
-                    );
+    );
   }
 #  endif
 
@@ -298,7 +296,7 @@ void pubMqttDiscovery() {
                     AHTsensor[i][5], AHTsensor[i][6], AHTsensor[i][7],
                     0, "", "", true, "",
                     "", "", "", "" // device name, device manufacturer, device model, device mac
-                    );
+    );
   }
 #  endif
 
@@ -320,7 +318,7 @@ void pubMqttDiscovery() {
                     DHTsensor[i][5], DHTsensor[i][6], DHTsensor[i][7],
                     0, "", "", true, "",
                     "", "", "", "" // device name, device manufacturer, device model, device mac
-                    );
+    );
   }
 #  endif
 
@@ -337,7 +335,7 @@ void pubMqttDiscovery() {
                   ADCsensor[5], ADCsensor[6], ADCsensor[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZsensorBH1750
@@ -359,7 +357,7 @@ void pubMqttDiscovery() {
                     BH1750sensor[i][5], BH1750sensor[i][6], BH1750sensor[i][7],
                     0, "", "", true, "",
                     "", "", "", "" // device name, device manufacturer, device model, device mac
-                    );
+    );
   }
 #  endif
 
@@ -382,7 +380,7 @@ void pubMqttDiscovery() {
                     TSL2561sensor[i][5], TSL2561sensor[i][6], TSL2561sensor[i][7],
                     0, "", "", true, "",
                     "", "", "", "" // device name, device manufacturer, device model, device mac
-                    );
+    );
   }
 #  endif
 
@@ -399,7 +397,7 @@ void pubMqttDiscovery() {
                   HCSR501sensor[5], HCSR501sensor[6], HCSR501sensor[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZsensorGPIOInput
@@ -415,7 +413,7 @@ void pubMqttDiscovery() {
                   GPIOInputsensor[5], GPIOInputsensor[6], GPIOInputsensor[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZsensorINA226
@@ -437,7 +435,7 @@ void pubMqttDiscovery() {
                     INA226sensor[i][5], INA226sensor[i][6], INA226sensor[i][7],
                     0, "", "", true, "",
                     "", "", "", "" // device name, device manufacturer, device model, device mac
-                    );
+    );
   }
 #  endif
 
@@ -459,7 +457,7 @@ void pubMqttDiscovery() {
                   actuatorONOFF[5], actuatorONOFF[6], actuatorONOFF[7],
                   0, "", "", true, subjectMQTTtoONOFF,
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewayRF
@@ -476,7 +474,7 @@ void pubMqttDiscovery() {
                   gatewayRF[5], gatewayRF[6], gatewayRF[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewayRF2
@@ -493,7 +491,7 @@ void pubMqttDiscovery() {
                   gatewayRF2[5], gatewayRF2[6], gatewayRF2[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewayRFM69
@@ -510,7 +508,7 @@ void pubMqttDiscovery() {
                   gatewayRFM69[5], gatewayRFM69[6], gatewayRFM69[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewayLORA
@@ -527,7 +525,7 @@ void pubMqttDiscovery() {
                   gatewayLORA[5], gatewayLORA[6], gatewayLORA[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewaySRFB
@@ -544,7 +542,7 @@ void pubMqttDiscovery() {
                   gatewaySRFB[5], gatewaySRFB[6], gatewaySRFB[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewayPilight
@@ -561,7 +559,7 @@ void pubMqttDiscovery() {
                   gatewayPilight[5], gatewayPilight[6], gatewayPilight[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewayIR
@@ -578,7 +576,7 @@ void pubMqttDiscovery() {
                   gatewayIR[5], gatewayIR[6], gatewayIR[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef Zgateway2G
@@ -595,7 +593,7 @@ void pubMqttDiscovery() {
                   gateway2G[5], gateway2G[6], gateway2G[7],
                   0, "", "", true, "",
                   "", "", "", "" // device name, device manufacturer, device model, device mac
-                  );
+  );
 #  endif
 
 #  ifdef ZgatewayBT
